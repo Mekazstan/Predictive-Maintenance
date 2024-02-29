@@ -16,9 +16,19 @@ df.head(5)
 # -----> Performing Exploratory Data Analysis on the dataset to ensure data quality before training(EDA)
 
 # Heatmap visualization of correlation between variables
-plt.figure(figsize=(10, 10))
-sns.heatmap(df.corr('spearman'), annot=True,cmap='summer')
-plt.title('Heatmap Correlation')
+# Calculate the correlation matrix
+corr_matrix = dataset.corr()
+
+# Set up the matplotlib figure
+fig, ax = plt.subplots(figsize=(10, 8))
+
+# Create the correlation heatmap using seaborn
+sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm', square=True, ax=ax)
+
+# Add a title
+plt.title('Correlation Heatmap')
+
+# Show the plot
 plt.show()
 
 # Checking for Null values in the dataset

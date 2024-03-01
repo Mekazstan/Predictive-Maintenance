@@ -6,9 +6,10 @@ import seaborn as sns
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
 import joblib
-from sklearn.metrics import confusion_matrix
+from imblearn.over_sampling import SMOTE
+from imblearn.pipeline import make_pipeline 
 
 # Load the dataset
 df = pd.read_csv("predictive_maintenance.csv")
@@ -111,13 +112,13 @@ y = df['Target']
 # -----> Training & Building the model
 
 # Spliting the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_resampled, y_resampled = SMOTE(random_state=42).fit_resample(X_train, y_train)
 
-# Initializing the Decision Tree Classifier
-model = DecisionTreeClassifier(random_state=42)
+# Initializing the Decision Tree Classifier within a pipeline
+model = make_pipeline(SMOTE(random_state=42), DecisionTreeClassifier(random_state=42))
 
 # Training the model
-model.fit(X_train, y_train)
+model.fit(X_resampled, y_resampled)
 
 # Make predictions on the test set
 y_pred = model.predict(X_test)

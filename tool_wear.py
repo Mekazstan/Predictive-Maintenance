@@ -48,34 +48,34 @@ plt.show()
 # Visualizing the distribution of the numerical features in the dataset using histograms.
 
 # Create a histogram of Air temperature
-fig = px.histogram(train_df, x="Air temperature [K]", nbins=20)
+fig = px.histogram(df, x="Air temperature [K]", nbins=20)
 fig.show()
 
 # Create a histogram of Process temperature
-fig = px.histogram(train_df, x="Process temperature [K]", nbins=20)
+fig = px.histogram(df, x="Process temperature [K]", nbins=20)
 fig.show()
 
 # Create a histogram of Rotational speed
-fig = px.histogram(train_df, x="Rotational speed [rpm]", nbins=20)
+fig = px.histogram(df, x="Rotational speed [rpm]", nbins=20)
 fig.show()
 
 # Create a histogram of Torque
-fig = px.histogram(train_df, x="Torque [Nm]", nbins=20)
+fig = px.histogram(df, x="Torque [Nm]", nbins=20)
 fig.show()
 
 # Create a histogram of Tool wear
-fig = px.histogram(train_df, x="Tool wear [min]", nbins=20)
+fig = px.histogram(df, x="Tool wear [min]", nbins=20)
 fig.show()
 
 # Machine Failure Analysis
 # To analyze machine failures, we can create a bar chart to visualize the count of failures.
-failure_counts = train_df["Machine failure"].value_counts()
+failure_counts = df["Machine failure"].value_counts()
 fig = px.bar(failure_counts, x=failure_counts.index, y=failure_counts.values, labels={"x": "Machine failure", "y": "Count"})
 fig.show()
 
 # Descriptive Statistics
 # Use the describe method to get summary statistics of the dataset
-styled_data = train_df.describe().style\
+styled_data = df.describe().style\
 .background_gradient(cmap='coolwarm')\
 .set_properties(**{'text-align':'center','border':'1px solid black'})
 

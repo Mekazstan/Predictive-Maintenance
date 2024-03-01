@@ -149,8 +149,8 @@ new_data = pd.DataFrame({
     'Rotational speed [rpm]': [1497],
     'Torque [Nm]': [46.8],
     'Tool wear [min]': [72],
-    'Temperature Difference': [10.1],  # Example value for temperature difference
-    'Power': [1497 * 46.8]  # Example value for power
+    'Temperature Difference': [10.1],
+    'Power': [1497 * 46.8]
 })
 
 # Load the trained model

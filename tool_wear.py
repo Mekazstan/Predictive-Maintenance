@@ -1,4 +1,5 @@
 from matplotlib import pyplot as plt
+import plotly.express as px
 import seaborn as sns
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -31,19 +32,48 @@ plt.title('Correlation Heatmap')
 # Show the plot
 plt.show()
 
+# Feature Distributions
+# Visualizing the distribution of the numerical features in the dataset using histograms.
+
+# Create a histogram of Air temperature
+fig = px.histogram(train_df, x="Air temperature [K]", nbins=20)
+fig.show()
+
+# Create a histogram of Process temperature
+fig = px.histogram(train_df, x="Process temperature [K]", nbins=20)
+fig.show()
+
+# Create a histogram of Rotational speed
+fig = px.histogram(train_df, x="Rotational speed [rpm]", nbins=20)
+fig.show()
+
+# Create a histogram of Torque
+fig = px.histogram(train_df, x="Torque [Nm]", nbins=20)
+fig.show()
+
+# Create a histogram of Tool wear
+fig = px.histogram(train_df, x="Tool wear [min]", nbins=20)
+fig.show()
+
+# Machine Failure Analysis
+# To analyze machine failures, we can create a bar chart to visualize the count of failures.
+failure_counts = train_df["Machine failure"].value_counts()
+fig = px.bar(failure_counts, x=failure_counts.index, y=failure_counts.values, labels={"x": "Machine failure", "y": "Count"})
+fig.show()
+
+# Descriptive Statistics
+# Use the describe method to get summary statistics of the dataset
+styled_data = train_df.describe().style\
+.background_gradient(cmap='coolwarm')\
+.set_properties(**{'text-align':'center','border':'1px solid black'})
+
+# display styled data
+display(styled_data)
+
+# -----> Data Preprocessing
+
 # Checking for Null values in the dataset
 df.isnull().sum()
-
-# Visualizing the distribution of the given dataset
-fig, axes = plt.subplots(2, 5, figsize=[25,15])
-j = 0
-colors = ['yellow', 'green'] 
-
-for i in ['Air temperature [K]', 'Process temperature [K]', 'Rotational speed [rpm]', 'Torque [Nm]', 'Tool wear [min]']:
-    sns.histplot(data=df, x=i, kde=True, ax=axes[0,j], hue='Machine failure', palette=colors)
-    j+=1
-    print('{} skewness = {}'.format(i, round(df[i].skew(), 2)))
-
 
 # Dropping columns that are not needed for prediction
 df = df.drop(['UDI', 'Product ID', 'Type', 'Failure Type'], axis=1)

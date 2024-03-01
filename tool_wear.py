@@ -1,5 +1,7 @@
 from matplotlib import pyplot as plt
 import plotly.express as px
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 import seaborn as sns
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -47,24 +49,33 @@ plt.show()
 # Feature Distributions
 # Visualizing the distribution of the numerical features in the dataset using histograms.
 
-# Create a histogram of Air temperature
-fig = px.histogram(df, x="Air temperature [K]", nbins=20)
-fig.show()
+# List of variables
+variables = ["Air temperature [K]", "Process temperature [K]", "Rotational speed [rpm]", "Torque [Nm]", "Tool wear [min]"]
 
-# Create a histogram of Process temperature
-fig = px.histogram(df, x="Process temperature [K]", nbins=20)
-fig.show()
+# Create subplots with two columns
+fig = make_subplots(rows=len(variables), cols=2, subplot_titles=[f'{var} Histogram and Boxplot' for var in variables])
 
-# Create a histogram of Rotational speed
-fig = px.histogram(df, x="Rotational speed [rpm]", nbins=20)
-fig.show()
+for i, var in enumerate(variables, start=1):
+    # Histogram
+    histogram = px.histogram(df, x=var, nbins=20, title=f'{var} Histogram')
+    histogram.update_layout(showlegend=False)
+    
+    # Boxplot
+    boxplot = px.box(df, x=var, title=f'{var} Boxplot')
+    boxplot.update_layout(showlegend=False)
 
-# Create a histogram of Torque
-fig = px.histogram(df, x="Torque [Nm]", nbins=20)
-fig.show()
+    # Add the histograms and boxplots to the subplots
+    fig.add_trace(histogram['data'][0], row=i, col=1)
+    fig.add_trace(boxplot['data'][0], row=i, col=2)
 
-# Create a histogram of Tool wear
-fig = px.histogram(df, x="Tool wear [min]", nbins=20)
+    # Save each subplot as an individual image
+    # histogram.write_image(f'{var}_histogram.png')
+    # boxplot.write_image(f'{var}_boxplot.png')
+
+# Update layout
+fig.update_layout(height=400*len(variables), width=800, showlegend=False)
+
+# Show the plot
 fig.show()
 
 # Machine Failure Analysis

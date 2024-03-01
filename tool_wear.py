@@ -105,6 +105,10 @@ df.isnull().sum()
 # Dropping columns that are not needed for prediction
 df = df.drop(['UDI', 'Product ID', 'Type', 'Failure Type'], axis=1)
 
+# Feature Engineering
+df['Temperature Difference'] = df['Air temperature [K]'] - df['Process temperature [K]']
+df['Power'] = df['Rotational speed [rpm]'] * df['Torque [Nm]']
+
 # Split data into features (X) and target variable (y)
 X = df.drop('Target', axis=1)
 y = df['Target']
@@ -144,7 +148,9 @@ new_data = pd.DataFrame({
     'Process temperature [K]': [308.7],
     'Rotational speed [rpm]': [1497],
     'Torque [Nm]': [46.8],
-    'Tool wear [min]': [72]
+    'Tool wear [min]': [72],
+    'Temperature Difference': [10.1],  # Example value for temperature difference
+    'Power': [1497 * 46.8]  # Example value for power
 })
 
 # Load the trained model
@@ -152,7 +158,7 @@ loaded_model = joblib.load('tool_wear_prediction_model.joblib')
 
 # Make predictions for the new data
 prediction = loaded_model.predict(new_data)
-# print("Predicted Tool Wear:", prediction)
+print("Predicted Tool Wear:", prediction)
 
 # -----> Printing results
 

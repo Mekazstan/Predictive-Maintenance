@@ -18,7 +18,7 @@ df.head(5)
 
 # Heatmap visualization of correlation between variables
 # Calculate the correlation matrix
-# corr_matrix = dataset.corr()
+# corr_matrix = df.corr()
 
 # Select only numeric columns
 numeric_columns = df.select_dtypes(include='number')
@@ -30,10 +30,16 @@ corr_matrix = numeric_columns.corr()
 fig, ax = plt.subplots(figsize=(10, 8))
 
 # Create the correlation heatmap using seaborn
-sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm', square=True, ax=ax)
+heatmap = sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm', square=True, ax=ax)
 
 # Add a title
 plt.title('Correlation Heatmap')
+
+# Adjust the layout to prevent text cutting off
+plt.tight_layout()
+
+# Save the heatmap image with a higher DPI (dots per inch)
+heatmap.get_figure().savefig('correlation_heatmap.png', bbox_inches='tight', dpi=300)
 
 # Show the plot
 plt.show()

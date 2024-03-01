@@ -18,7 +18,13 @@ df.head(5)
 
 # Heatmap visualization of correlation between variables
 # Calculate the correlation matrix
-corr_matrix = dataset.corr()
+# corr_matrix = dataset.corr()
+
+# Select only numeric columns
+numeric_columns = df.select_dtypes(include='number')
+
+# Calculate the correlation matrix
+corr_matrix = numeric_columns.corr()
 
 # Set up the matplotlib figure
 fig, ax = plt.subplots(figsize=(10, 8))

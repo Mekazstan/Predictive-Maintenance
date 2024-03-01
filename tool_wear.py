@@ -84,6 +84,9 @@ failure_counts = df["Machine failure"].value_counts()
 fig = px.bar(failure_counts, x=failure_counts.index, y=failure_counts.values, labels={"x": "Machine failure", "y": "Count"})
 fig.show()
 
+# Distinguishing between cases of failure & No-Failure
+df['Target'].value_counts()
+
 # Descriptive Statistics
 # Use the describe method to get summary statistics of the dataset
 styled_data = df.describe().style\

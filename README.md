@@ -34,3 +34,48 @@ The results are printed, including the confusion matrix for the new data and add
 Make sure to install the required libraries using the following:
 - pip install matplotlib plotly seaborn pandas scikit-learn imbalanced-learn joblib
 
+
+# ABOUT THE CODE
+This code does several things related to predictive maintenance using machine learning. Let me break it down:
+
+- Data Loading and Exploration:
+The code starts by loading a dataset named "predictive_maintenance.csv" into a data structure called a DataFrame using the pandas library.
+It then displays the first 5 rows of this dataset to give an initial overview of what the data looks like.
+
+- Exploratory Data Analysis (EDA):
+The code performs Exploratory Data Analysis to ensure the quality of the data before training the model.
+It creates a heatmap showing the correlation between different numeric variables, helping identify relationships in the data.
+
+- Visualizing Feature Distributions:
+Next, it visualizes the distribution of specific numeric features in the dataset using histograms and boxplots, making it easier to understand how these features vary.
+
+- Machine Failure Analysis:
+It creates a bar chart to visualize the count of machine failures, providing insight into the frequency of failures.
+
+- Descriptive Statistics:
+The code displays descriptive statistics of the dataset, giving a summary of key metrics like mean, standard deviation, and quartiles.
+
+- Data Preprocessing:
+It checks for any missing values in the dataset and drops columns that are not needed for prediction.
+The code then engineers two new features, namely "Temperature Difference" and "Power," from existing features.
+
+- Model Training:
+The dataset is split into training and testing sets.
+It uses the Synthetic Minority Over-Sampling Technique (SMOTE) to handle imbalanced data during training.
+The code employs a Decision Tree Classifier within a pipeline for model training.
+
+- Model Evaluation:
+The trained model is evaluated using metrics like confusion matrix, accuracy, and classification report.
+These metrics help assess how well the model performs in predicting machine failure.
+
+- Saving the Model:
+The trained model is saved for future use, enabling easy deployment without retraining.
+
+- Predicting Tool Wear for New Data:
+A new dataset with specific parameter values is created to predict tool wear using the trained model.
+The code loads the saved model and makes predictions for the new data.
+
+- Printing Results:
+The confusion matrix for the new data is displayed, along with additional information based on the prediction.
+
+In summary, this code is a comprehensive pipeline for building, training, evaluating, and using a machine learning model for predictive maintenance. It involves data exploration, visualization, model training, and result interpretation.

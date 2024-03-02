@@ -1,5 +1,5 @@
 # Predictive Maintenance Model
-This repository contains code for a predictive maintenance model designed to predict machinery failure. The model uses an ensemble of feature-engineered variables and employs an Artificial Neural Network (ANN) implemented as a feed-forward neural network classifier.
+This work contains code for a predictive maintenance model designed to predict machinery failure. The model uses an ensemble of feature-engineered variables and employs an Artificial Neural Network (ANN) implemented as a feed-forward neural network classifier.
 
 ## Contents
 Exploratory Data Analysis (EDA)
@@ -32,5 +32,5 @@ The results are printed, including the confusion matrix for the new data and add
 
 ## Requirements
 Make sure to install the required libraries using the following:
-"pip install matplotlib plotly seaborn pandas scikit-learn imbalanced-learn joblib"
+- pip install matplotlib plotly seaborn pandas scikit-learn imbalanced-learn joblib
 

@@ -78,4 +78,5 @@ The code loads the saved model and makes predictions for the new data.
 - Printing Results:
 The confusion matrix for the new data is displayed, along with additional information based on the prediction.
 
-In summary, this code is a comprehensive pipeline for building, training, evaluating, and using a machine learning model for predictive maintenance. It involves data exploration, visualization, model training, and result interpretation.
+- Summary
+This code is a pipeline for building, training, evaluating, and using a machine learning model for predictive maintenance. It involves data exploration, visualization, model training, and result interpretation.

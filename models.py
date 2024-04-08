@@ -106,8 +106,8 @@ display(styled_data)
 # Checking for Null values in the dataset
 df.isnull().sum()
 
-# Dropping columns that are not needed for prediction
-df = df.drop(['UDI', 'Product ID', 'Type', 'Failure Type'], axis=1)
+# # Dropping columns that are not needed for prediction
+# df = df.drop(['UDI', 'Product ID', 'Type', 'Failure Type'], axis=1)
 
 # Feature Engineering
 df['Temperature Difference'] = df['Air temperature [K]'] - df['Process temperature [K]']

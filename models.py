@@ -129,7 +129,7 @@ model = make_pipeline(SMOTE(random_state=42), DecisionTreeClassifier(random_stat
 models = {
     "Decision Tree": DecisionTreeClassifier(random_state=42),
     "Support Vector Machine": SVC(random_state=42),
-    "Logistic Regression": LogisticRegression(random_state=42),
+    "Logistic Regression": LogisticRegression(max_iter=1000, random_state=42),
     "Random Forest": RandomForestClassifier(random_state=42),
     "Artificial Neural Network": MLPClassifier(random_state=42)
 }
@@ -143,13 +143,13 @@ for name, model in models.items():
     accuracy = accuracy_score(y_test, y_pred)
     results[name] = {"Accuracy": accuracy, "Confusion Matrix": confusion_matrix(y_test, y_pred)}
 
-# Print results
-for name, result in results.items():
-    print(f"Model: {name}")
-    print(f"Accuracy: {result['Accuracy']:.2f}")
-    print("Confusion Matrix:")
-    print(result["Confusion Matrix"])
-    print("\n")
+# # Print results
+# for name, result in results.items():
+#     print(f"Model: {name}")
+#     print(f"Accuracy: {result['Accuracy']:.2f}")
+#     print("Confusion Matrix:")
+#     print(result["Confusion Matrix"])
+#     print("\n")
 
 # Save the best model
 best_model_name = max(results, key=lambda k: results[k]['Accuracy'])
@@ -172,23 +172,23 @@ prediction = loaded_model.predict(new_data)
 # Print prediction
 if prediction[0] == 1:
     print("Predicted Tool Wear: The tool is more likely to fail.")
+    # Get feature importances from the best model (if it's a tree-based model)
+    if isinstance(best_model, DecisionTreeClassifier) or isinstance(best_model, RandomForestClassifier):
+        feature_importances = best_model.feature_importances_
+        feature_names = X.columns
+        feature_importance_dict = dict(zip(feature_names, feature_importances))
+        sorted_feature_importance = sorted(feature_importance_dict.items(), key=lambda x: x[1], reverse=True)
+    
+        # Print feature importances
+        print("\nFeature Importances:")
+        for feature, importance in sorted_feature_importance:
+            print(f"{feature}: {importance:.4f}")
+    
+        # Identify the most important feature
+        most_important_feature = sorted_feature_importance[0][0]
+        print(f"\nMost Important Feature Leading to Machine Failure: {most_important_feature}")
+    else:
+        print("Feature importances are not available for the selected model.")
+
 else:
     print("Predicted Tool Wear: No failure is predicted.")
-
-# Get feature importances from the best model (if it's a tree-based model)
-if isinstance(best_model, DecisionTreeClassifier) or isinstance(best_model, RandomForestClassifier):
-    feature_importances = best_model.feature_importances_
-    feature_names = X.columns
-    feature_importance_dict = dict(zip(feature_names, feature_importances))
-    sorted_feature_importance = sorted(feature_importance_dict.items(), key=lambda x: x[1], reverse=True)
-
-    # Print feature importances
-    print("\nFeature Importances:")
-    for feature, importance in sorted_feature_importance:
-        print(f"{feature}: {importance:.4f}")
-
-    # Identify the most important feature
-    most_important_feature = sorted_feature_importance[0][0]
-    print(f"\nMost Important Feature Leading to Machine Failure: {most_important_feature}")
-else:
-    print("Feature importances are not available for the selected model.")
